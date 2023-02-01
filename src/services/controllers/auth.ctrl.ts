@@ -3,6 +3,8 @@ import { Request, Response } from 'express';
 export const signup = (req: Request, res: Response): Response => {
     try {
         const { ref } = req.params;
+        const { role } = req.body;
+        if (role) console.log('Is role');
         if (ref) console.log('refereciado');
 
         return res.send(req.body);

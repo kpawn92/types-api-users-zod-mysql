@@ -9,6 +9,7 @@ export const createRoles = async () => {
     try {
         const count = <RowDataPacket>await Roles.countRole();
         if (count[0].count > 0) return;
+
         await Roles.createRols();
         console.log('Created roles');
     } catch (e) {
