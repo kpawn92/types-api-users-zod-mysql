@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : FarmaRAM
+ Source Server         : Farmram
  Source Server Type    : MySQL
- Source Server Version : 100419
+ Source Server Version : 100421
  Source Host           : localhost:3306
  Source Schema         : usersdb
 
  Target Server Type    : MySQL
- Target Server Version : 100419
+ Target Server Version : 100421
  File Encoding         : 65001
 
- Date: 02/02/2023 08:42:46
+ Date: 02/02/2023 14:24:51
 */
 
 SET NAMES utf8mb4;
@@ -27,7 +27,7 @@ CREATE TABLE `tb_moderator`  (
   `lastname` varchar(50) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `userId` varchar(36) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_spanish_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_spanish_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of tb_moderator
@@ -43,7 +43,7 @@ CREATE TABLE `tb_references`  (
   `affilies` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL,
   `createdAt` timestamp(6) NOT NULL DEFAULT current_timestamp(6) ON UPDATE CURRENT_TIMESTAMP(6),
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_spanish_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_spanish_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of tb_references
@@ -57,14 +57,14 @@ CREATE TABLE `tb_role`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(11) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 18 CHARACTER SET = utf8 COLLATE = utf8_spanish_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 28 CHARACTER SET = utf8 COLLATE = utf8_spanish_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of tb_role
 -- ----------------------------
-INSERT INTO `tb_role` VALUES (15, 'root');
-INSERT INTO `tb_role` VALUES (16, 'user');
-INSERT INTO `tb_role` VALUES (17, 'moderator');
+INSERT INTO `tb_role` VALUES (25, 'root');
+INSERT INTO `tb_role` VALUES (26, 'user');
+INSERT INTO `tb_role` VALUES (27, 'moderator');
 
 -- ----------------------------
 -- Table structure for tb_subscriber
@@ -76,7 +76,7 @@ CREATE TABLE `tb_subscriber`  (
   `lastname` varchar(50) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `userId` varchar(36) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_spanish_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_spanish_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of tb_subscriber
@@ -94,11 +94,11 @@ CREATE TABLE `tb_user`  (
   `createdAt` timestamp(6) NOT NULL DEFAULT current_timestamp(6) ON UPDATE CURRENT_TIMESTAMP(6),
   `state` tinyint(1) NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_spanish_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_spanish_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of tb_user
 -- ----------------------------
-INSERT INTO `tb_user` VALUES ('2434c0d3-b806-41ef-ad31-a1946b199f53', 'admin@admin.com', '$2a$10$Szb3G91wTWzvAW3M0i5/rugIZxjaEh5ThImgU7jvp7MpsRHW33YfS', 15, '2023-02-01 18:10:44.939138', 1);
+INSERT INTO `tb_user` VALUES ('d9cc251e-078f-4f07-8796-d0817903a8bb', 'admin@admin.com', '$2a$10$Q0fesCdKCADE54OwFi78O.CwtMaRNVwfJVNqraNSwNSnSJAA/DWAm', 25, '2023-02-02 13:35:35.863600', 1);
 
 SET FOREIGN_KEY_CHECKS = 1;

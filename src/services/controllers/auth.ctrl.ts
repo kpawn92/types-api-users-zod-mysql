@@ -1,11 +1,14 @@
 import { Request, Response } from 'express';
+import { AccountMod } from '../middleware/moderator.midd';
 
-export const signup = (req: Request, res: Response): Response => {
+export const signup = async (req: Request, res: Response) => {
     try {
         const { ref } = req.params;
         const { role } = req.body;
-        if (role) console.log('Is role');
+
         if (ref) console.log('refereciado');
+
+        if (role) return await AccountMod(req, res);
 
         return res.send(req.body);
     } catch (e) {

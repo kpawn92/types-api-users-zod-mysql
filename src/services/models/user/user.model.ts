@@ -6,12 +6,17 @@ export const countUsers = async () => {
     return result;
 };
 
-export const accountRoot = async ({ id, email, password, role }: AdminUser) => {
+export const accountRoot = async ({
+    id,
+    email,
+    password,
+    role,
+}: AdminUser): Promise<object> => {
     const [result] = await pool.query('INSERT INTO tb_user SET ?', {
         id,
         email,
         password,
         role,
     });
-    return result;
+    return { result, id };
 };
