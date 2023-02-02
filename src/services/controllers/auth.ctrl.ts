@@ -6,9 +6,9 @@ export const signup = async (req: Request, res: Response) => {
         const { ref } = req.params;
         const { role } = req.body;
 
-        if (ref) console.log('refereciado');
-
         if (role) return await AccountMod(req, res);
+
+        if (ref) console.log('refereciado');
 
         return res.send(req.body);
     } catch (e) {

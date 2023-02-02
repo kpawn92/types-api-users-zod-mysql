@@ -6,7 +6,7 @@ export const countUsers = async () => {
     return result;
 };
 
-export const accountRoot = async ({
+export const accountUser = async ({
     id,
     email,
     password,
@@ -18,5 +18,13 @@ export const accountRoot = async ({
         password,
         role,
     });
-    return { result, id };
+    return { userResult: result, _id: id };
+};
+
+export const getByEmail = async (email: string) => {
+    const [result] = await pool.query(
+        'SELECT email FROM tb_user WHERE email = ?',
+        [email]
+    );
+    return result;
 };

@@ -34,7 +34,7 @@ export const accountAdmin = async () => {
             role: arrRole[0].id,
         };
 
-        await User.accountRoot(admin);
+        await User.accountUser(admin);
         console.log('Root created');
     } catch (e) {
         console.log(e);

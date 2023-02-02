@@ -9,4 +9,4 @@ interface User {
 }
 
 export type AdminUser = Omit<User, 'name' | 'lastname' | 'userId'>;
-export type IsUser = Omit<User, 'email' | 'password' | 'role'>;
+export type IsUser = Omit<User, 'id' | 'email' | 'password' | 'role'>;

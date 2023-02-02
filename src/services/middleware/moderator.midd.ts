@@ -1,20 +1,44 @@
 import { Request, Response } from 'express';
 import { RowDataPacket } from 'mysql2';
-import { Roles } from '../models';
+import jwt from 'jsonwebtoken';
+import 'dotenv/config';
+import { Moderator, Roles, User } from '../models';
+import { v4 as uuid } from 'uuid';
+import { encryptPassword } from '../../tools/pass.tool';
 
 export const AccountMod = async (
     req: Request,
     res: Response
 ): Promise<Response> => {
     try {
-        const { role } = req.body;
+        const { name, lastname, email, role } = req.body;
 
         if (role !== 'moderator')
             return res.status(404).json({ message: 'Invalid role' });
 
         const idRole = <RowDataPacket>await Roles.getRoleByName(role);
 
-        return res.status(200).json(idRole);
+        const readyUser = <RowDataPacket>await User.getByEmail(email);
+
+        if (readyUser.length > 0)
+            return res.status(400).json({ message: 'Email already exists' });
+
+        const user = await User.accountUser({
+            id: uuid(),
+            email,
+            password: await encryptPassword(req.body.password),
+            role: idRole[0].id,
+        });
+
+        const { userResul, _id } = Object(user);
+
+        const mod = await Moderator.createMod({ name, lastname, userId: _id });
+
+        const token = jwt.sign({ _id }, String(process.env.KEY_SECRET), {
+            expiresIn: 86400, // 24h valid
+        });
+
+        return res.status(200).json({ mod, userResul, token });
     } catch (e) {
         return res.status(500).json({ message: 'Internal error: ' + e });
     }
