@@ -34,11 +34,11 @@ export const AccountMod = async (
 
         const mod = await Moderator.createMod({ name, lastname, userId: _id });
 
-        const token = jwt.sign({ _id }, String(process.env.KEY_SECRET), {
+        const auth = jwt.sign({ _id }, String(process.env.KEY_SECRET), {
             expiresIn: 86400, // 24h valid
         });
 
-        return res.status(200).json({ mod, userResul, token });
+        return res.status(200).json({ mod, userResul, auth });
     } catch (e) {
         return res.status(500).json({ message: 'Internal error: ' + e });
     }

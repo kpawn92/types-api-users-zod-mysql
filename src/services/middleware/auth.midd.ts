@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { signupSchema } from '../schemas/auth.schema';
+import { signUpSchema, signInSchema } from '../schemas/auth.schema';
 import { ZodError } from 'zod';
 
 export const validateBodyAuth = (
@@ -8,7 +8,7 @@ export const validateBodyAuth = (
     next: NextFunction
 ): Response | void => {
     try {
-        signupSchema.parse(req.body);
+        signUpSchema.parse(req.body);
         return next();
     } catch (e) {
         if (e instanceof ZodError) {
@@ -17,5 +17,22 @@ export const validateBodyAuth = (
                 .json(e.issues.map((issue) => ({ message: issue.message })));
         }
         return res.status(500).json({ message: 'Internal server error' + e });
+    }
+};
+
+export const validateLogin = (
+    req: Request,
+    res: Response,
+    next: NextFunction
+): Response | void => {
+    try {
+        signInSchema.parse(req.body);
+        return next();
+    } catch (e) {
+        if (e instanceof ZodError) {
+            return res
+                .status(400)
+                .json(e.issues.map((issue) => ({ message: issue.message })));
+        }
     }
 };
