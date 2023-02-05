@@ -2,9 +2,11 @@ import { Request, Response } from 'express';
 import { RowDataPacket } from 'mysql2';
 import jwt from 'jsonwebtoken';
 import 'dotenv/config';
+import { v4 as uuid } from 'uuid';
 import { RegisterBodyType, RegisterParamsType } from '../schemas/auth.schema';
-import { comparePassword } from '../../tools/pass.tool';
-import { User } from '../models/';
+import { comparePassword, encryptPassword } from '../../tools/pass.tool';
+import { Roles, Subscriber, User } from '../models/';
+import { AdminUser, IsUser } from '../../types';
 
 export const signup = async (
     req: Request<RegisterParamsType, unknown, RegisterBodyType>,
@@ -12,9 +14,33 @@ export const signup = async (
 ): Promise<Response> => {
     try {
         const { ref } = req.params;
+
         if (ref) console.log(ref); //TODO: condicion para llamar al metodo de affilies
 
-        return res.send(req.body);
+        const { name, lastname, email, password } = req.body;
+
+        const rol = <RowDataPacket>await Roles.getRoleByName('user');
+
+        const userId: string = uuid();
+
+        const user: AdminUser = {
+            id: userId,
+            email,
+            password: await encryptPassword(password),
+            role: rol[0].id,
+        };
+
+        const subs: IsUser = {
+            name,
+            lastname,
+            userId,
+        };
+
+        await User.accountUser(user);
+
+        const accountSubscriber = await Subscriber.createSubs(subs);
+
+        return res.status(200).json(accountSubscriber);
     } catch (e) {
         return res.status(500).json({ message: 'Internal server error' + e });
     }

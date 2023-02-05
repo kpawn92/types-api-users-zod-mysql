@@ -15,11 +15,6 @@ export const accountMod = async (req: Request, res: Response) => {
 
         const idRole = <RowDataPacket>await Roles.getRoleByName(role);
 
-        const readyUser = <RowDataPacket>await User.getByEmail(email);
-
-        if (readyUser.length > 0)
-            return res.status(400).json({ message: 'Email already exists' });
-
         const user = await User.accountUser({
             id: uuid(),
             email,

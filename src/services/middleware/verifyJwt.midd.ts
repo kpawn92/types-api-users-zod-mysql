@@ -41,3 +41,32 @@ export const isRoot = async (
         return res.status(500).json({ message: 'Internal err server ' + e });
     }
 };
+
+export const isModerator = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
+    try {
+        const role = <RowDataPacket>await User.getRoleById(req.userID);
+        if (role[0].name !== 'moderator')
+            return res.status(401).json({ message: 'Unauthorized' });
+        return next();
+    } catch (e) {
+        return res.status(500).json({ message: 'Internal err server ' + e });
+    }
+};
+export const isSubs = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
+    try {
+        const role = <RowDataPacket>await User.getRoleById(req.userID);
+        if (role[0].name !== 'user')
+            return res.status(401).json({ message: 'Unauthorized' });
+        return next();
+    } catch (e) {
+        return res.status(500).json({ message: 'Internal err server ' + e });
+    }
+};

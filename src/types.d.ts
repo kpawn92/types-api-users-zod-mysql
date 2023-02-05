@@ -16,3 +16,5 @@ export interface IPayload {
 
 export type AdminUser = Omit<User, 'name' | 'lastname' | 'userId'>;
 export type IsUser = Omit<User, 'id' | 'email' | 'password' | 'role'>;
+
+export type Refence = string;

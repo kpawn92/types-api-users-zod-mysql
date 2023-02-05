@@ -1,5 +1,5 @@
 import { pool } from '../../../connection/mysql.conn';
-import { AdminUser } from '../../../types';
+import { AdminUser, Refence } from '../../../types';
 
 export const countUsers = async () => {
     const [result] = await pool.query('SELECT COUNT(id) as count FROM tb_user');
@@ -35,4 +35,11 @@ export const getRoleById = async (id: string): Promise<object> => {
         [id]
     );
     return result;
+};
+
+export const searchUserByParams = async (ref: Refence) => {
+    const [query] = await pool.query(
+        `SELECT email FROM tb_user WHERE email LIKE '%${ref}%'`
+    );
+    return query;
 };

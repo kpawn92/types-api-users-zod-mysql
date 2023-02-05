@@ -5,6 +5,7 @@ import { accountMod } from '../services/middleware/moderator.midd';
 import { isRoot, verifyToken } from '../services/middleware/verifyJwt.midd';
 import { signInSchema, signUpSchema } from '../services/schemas/auth.schema';
 import { verifyEmail } from '../services/middleware/verify.email.midd';
+import { verifyParams } from '../services/middleware/verify.params.midd';
 
 const router: Router = Router();
 
@@ -15,12 +16,14 @@ router.post(
     verifyToken,
     isRoot,
     schemaValidition(signUpSchema),
+    verifyEmail,
     accountMod
 );
 
 router.post(
     '/signup/:ref',
     schemaValidition(signUpSchema),
+    verifyParams,
     verifyEmail,
     signup
 );
