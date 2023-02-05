@@ -12,7 +12,6 @@ export const signup = async (
 ): Promise<Response> => {
     try {
         const { ref } = req.params;
-
         if (ref) console.log(ref); //TODO: condicion para llamar al metodo de affilies
 
         return res.send(req.body);

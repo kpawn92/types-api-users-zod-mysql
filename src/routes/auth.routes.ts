@@ -4,10 +4,11 @@ import { schemaValidition } from '../services/middleware/schema.validate.midd';
 import { accountMod } from '../services/middleware/moderator.midd';
 import { isRoot, verifyToken } from '../services/middleware/verifyJwt.midd';
 import { signInSchema, signUpSchema } from '../services/schemas/auth.schema';
+import { verifyEmail } from '../services/middleware/verify.email.midd';
 
 const router: Router = Router();
 
-router.post('/signup', schemaValidition(signUpSchema), signup);
+router.post('/signup', schemaValidition(signUpSchema), verifyEmail, signup);
 
 router.post(
     '/register',
@@ -17,7 +18,12 @@ router.post(
     accountMod
 );
 
-router.post('/signup/:ref', schemaValidition(signUpSchema), signup);
+router.post(
+    '/signup/:ref',
+    schemaValidition(signUpSchema),
+    verifyEmail,
+    signup
+);
 
 router.post('/signin', schemaValidition(signInSchema), signin);
 
