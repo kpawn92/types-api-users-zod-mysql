@@ -12,9 +12,12 @@ export const validateBodyAuth = (
         return next();
     } catch (e) {
         if (e instanceof ZodError) {
-            return res
-                .status(400)
-                .json(e.issues.map((issue) => ({ message: issue.message })));
+            return res.status(400).json(
+                e.issues.map((issue) => ({
+                    path: issue.path,
+                    message: issue.message,
+                }))
+            );
         }
         return res.status(500).json({ message: 'Internal server error' + e });
     }
@@ -30,9 +33,12 @@ export const validateLogin = (
         return next();
     } catch (e) {
         if (e instanceof ZodError) {
-            return res
-                .status(400)
-                .json(e.issues.map((issue) => ({ message: issue.message })));
+            return res.status(400).json(
+                e.issues.map((issue) => ({
+                    path: issue.path,
+                    message: issue.message,
+                }))
+            );
         }
     }
 };

@@ -3,15 +3,14 @@ import { RowDataPacket } from 'mysql2';
 import jwt from 'jsonwebtoken';
 import 'dotenv/config';
 import { comparePassword } from '../../tools/pass.tool';
-import { AccountMod } from '../middleware/moderator.midd';
 import { User } from '../models/';
 
-export const signup = async (req: Request, res: Response) => {
+export const signup = async (
+    req: Request,
+    res: Response
+): Promise<Response> => {
     try {
         const { ref } = req.params;
-        const { role } = req.body;
-
-        if (role) return await AccountMod(req, res);
 
         if (ref) console.log('refereciado'); //TODO: condicion para llamar al metodo de affilies
 
@@ -21,7 +20,10 @@ export const signup = async (req: Request, res: Response) => {
     }
 };
 
-export const signin = async (req: Request, res: Response) => {
+export const signin = async (
+    req: Request,
+    res: Response
+): Promise<Response> => {
     const { email, password } = req.body;
 
     const verifyUser = <RowDataPacket>await User.getByEmail(email);
@@ -34,11 +36,11 @@ export const signin = async (req: Request, res: Response) => {
     if (!mathPassword)
         return res.status(400).json({ message: 'Invalid password' });
 
-    const auth = jwt.sign({ id }, String(process.env.KEY_SECRET), {
+    const token = jwt.sign({ id }, String(process.env.KEY_SECRET), {
         expiresIn: 86400, // 24h valid
     });
 
-    return res.json({ auth });
+    return res.status(200).json({ token });
 };
 
 export const profile = (_req: Request, res: Response): Response => {

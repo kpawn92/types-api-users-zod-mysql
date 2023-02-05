@@ -28,3 +28,11 @@ export const getByEmail = async (email: string) => {
     );
     return result;
 };
+
+export const getRoleById = async (id: string): Promise<object> => {
+    const [result] = await pool.query(
+        'SELECT tb_role.name FROM tb_user JOIN tb_role ON tb_role.id = tb_user.role WHERE tb_user.id = ?',
+        [id]
+    );
+    return result;
+};
