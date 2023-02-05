@@ -5,7 +5,7 @@ import { IPayload } from '../../types';
 import { User } from '../models';
 import { RowDataPacket } from 'mysql2';
 
-export const tokenValidation = (
+export const verifyToken = (
     req: Request,
     res: Response,
     next: NextFunction

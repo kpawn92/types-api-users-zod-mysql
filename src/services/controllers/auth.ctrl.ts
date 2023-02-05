@@ -2,17 +2,18 @@ import { Request, Response } from 'express';
 import { RowDataPacket } from 'mysql2';
 import jwt from 'jsonwebtoken';
 import 'dotenv/config';
+import { RegisterBodyType, RegisterParamsType } from '../schemas/auth.schema';
 import { comparePassword } from '../../tools/pass.tool';
 import { User } from '../models/';
 
 export const signup = async (
-    req: Request,
+    req: Request<RegisterParamsType, unknown, RegisterBodyType>,
     res: Response
 ): Promise<Response> => {
     try {
         const { ref } = req.params;
 
-        if (ref) console.log('refereciado'); //TODO: condicion para llamar al metodo de affilies
+        if (ref) console.log(ref); //TODO: condicion para llamar al metodo de affilies
 
         return res.send(req.body);
     } catch (e) {
