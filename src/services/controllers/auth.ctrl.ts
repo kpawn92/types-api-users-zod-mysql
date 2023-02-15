@@ -37,9 +37,11 @@ export const signup = async (
 
         await User.accountUser(user);
 
-        const accountSubscriber = await Subscriber.createSubs(subs);
+        const accountSubscriber = <RowDataPacket>(
+            await Subscriber.createSubs(subs)
+        );
 
-        if (ref) console.log(await affilies(req.userRef)); //TODO: condicion para llamar al metodo de affilies
+        if (ref) console.log(await affilies(req.userRef, accountSubscriber.id)); //TODO: condicion para llamar al metodo de affilies
 
         return res.status(200).json(accountSubscriber);
     } catch (e) {
