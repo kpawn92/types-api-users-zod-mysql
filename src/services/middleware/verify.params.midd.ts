@@ -21,6 +21,8 @@ export const verifyParams = async (
                     .json({ message: 'Reference invalid, not exists user' });
             if (searchUser[0].email.split('@')[0] !== ref)
                 return res.status(404).json({ message: 'Refer no exists' });
+
+            req.userRef = searchUser[0].id;
         }
 
         return next();

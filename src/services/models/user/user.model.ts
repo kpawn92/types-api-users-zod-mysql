@@ -40,7 +40,7 @@ export const getRoleById = async (id: string): Promise<object> => {
 
 export const searchUserByParams = async (ref: Refence) => {
     const [query] = await pool.query(
-        `SELECT email FROM tb_user WHERE email LIKE '%${ref}%'`
+        `SELECT id, email FROM tb_user WHERE email LIKE '%${ref}%'`
     );
     return query;
 };

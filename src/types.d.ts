@@ -14,6 +14,12 @@ export interface IPayload {
     exp: number;
 }
 
+export interface Affilies {
+    id: string;
+    userId: string;
+    affilies: string;
+}
+
 export type AdminUser = Omit<User, 'name' | 'lastname' | 'userId'>;
 export type IsUser = Omit<User, 'id' | 'email' | 'password' | 'role'>;
 

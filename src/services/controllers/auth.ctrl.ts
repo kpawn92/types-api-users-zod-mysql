@@ -7,6 +7,7 @@ import { RegisterBodyType, RegisterParamsType } from '../schemas/auth.schema';
 import { comparePassword, encryptPassword } from '../../tools/pass.tool';
 import { Roles, Subscriber, User } from '../models/';
 import { AdminUser, IsUser } from '../../types';
+import { affilies } from '../../tools/affilies.tool';
 
 export const signup = async (
     req: Request<RegisterParamsType, unknown, RegisterBodyType>,
@@ -14,8 +15,6 @@ export const signup = async (
 ): Promise<Response> => {
     try {
         const { ref } = req.params;
-
-        if (ref) console.log(ref); //TODO: condicion para llamar al metodo de affilies
 
         const { name, lastname, email, password } = req.body;
 
@@ -39,6 +38,8 @@ export const signup = async (
         await User.accountUser(user);
 
         const accountSubscriber = await Subscriber.createSubs(subs);
+
+        if (ref) console.log(await affilies(req.userRef)); //TODO: condicion para llamar al metodo de affilies
 
         return res.status(200).json(accountSubscriber);
     } catch (e) {
