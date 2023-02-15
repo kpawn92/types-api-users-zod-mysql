@@ -5,7 +5,7 @@ import { IPayload } from '../../types';
 import { User } from '../models';
 import { RowDataPacket } from 'mysql2';
 
-export const verifyToken = (
+export const verifyToken = async (
     req: Request,
     res: Response,
     next: NextFunction
@@ -18,6 +18,10 @@ export const verifyToken = (
             token,
             String(process.env.KEY_SECRET)
         ) as IPayload;
+
+        const queryRole = <RowDataPacket>await User.getRoleById(payload.id);
+
+        req.rol = queryRole[0].name;
 
         req.userID = payload.id;
 

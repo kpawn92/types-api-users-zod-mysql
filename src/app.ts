@@ -14,6 +14,6 @@ createRoles();
 accountAdmin();
 
 // routes
-app.use('/api/auth/', authRoute);
+app.use('/auth/', authRoute);
 
 export default app;

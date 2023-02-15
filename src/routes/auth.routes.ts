@@ -9,6 +9,11 @@ import { verifyParams } from '../services/middleware/verify.params.midd';
 
 const router: Router = Router();
 
+//TODO: ➜ Cuantas vistas tiene la pagina
+//TODO: ➜ Cuantos usuarios hay regitrados
+//TODO: ➜ Cuantos usuarios estan online simultaneamente
+//TODO: ➜ Registro de afiliados
+
 router.post('/signup', schemaValidition(signUpSchema), verifyEmail, signup);
 
 router.post(
@@ -30,6 +35,6 @@ router.post(
 
 router.post('/signin', schemaValidition(signInSchema), signin);
 
-router.get('/profile', profile);
+router.get('/profile', verifyToken, profile);
 
 export default router;

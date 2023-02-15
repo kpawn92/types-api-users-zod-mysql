@@ -69,6 +69,14 @@ export const signin = async (
     return res.status(200).json({ token });
 };
 
-export const profile = (_req: Request, res: Response): Response => {
-    return res.send('Profile');
+export const profile = async (
+    req: Request,
+    res: Response
+): Promise<Response> => {
+    if (req.rol === 'user') {
+        const subsProfile = await User.getProfile(req.userID);
+        return res.status(200).json(subsProfile);
+    }
+    const modProfile = await User.getProfile(req.userID, req.rol);
+    return res.status(200).json(modProfile);
 };

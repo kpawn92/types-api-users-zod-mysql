@@ -1,5 +1,6 @@
 import { pool } from '../../../connection/mysql.conn';
 import { AdminUser, Refence } from '../../../types';
+import 'dotenv/config';
 
 export const countUsers = async () => {
     const [result] = await pool.query('SELECT COUNT(id) as count FROM tb_user');
@@ -42,4 +43,15 @@ export const searchUserByParams = async (ref: Refence) => {
         `SELECT email FROM tb_user WHERE email LIKE '%${ref}%'`
     );
     return query;
+};
+
+export const getProfile = async (
+    id: string,
+    entity: string = 'subscriber'
+): Promise<object> => {
+    const [result] = await pool.query(
+        `SELECT tb_${entity}.id, tb_${entity}.name, lastname, email, createdAt FROM tb_${entity} JOIN tb_user ON tb_user.id = tb_${entity}.userId WHERE tb_user.id = ?`,
+        [id]
+    );
+    return { result, permission: entity };
 };
