@@ -43,6 +43,8 @@ export const signup = async (
 
         if (ref) console.log(await affilies(req.userRef, accountSubscriber.id)); //TODO: condicion para llamar al metodo de affilies
 
+        console.log('render controller');
+
         return res.status(200).json(accountSubscriber);
     } catch (e) {
         return res.status(500).json({ message: 'Internal server error' + e });

@@ -17,3 +17,11 @@ export const createdReference = async ({ userId, affilies }: Affilies) => {
     });
     return result;
 };
+
+export const updateReference = async ({ userId, affilies }: Affilies) => {
+    const [result] = await pool.query(
+        'UPDATE tb_references SET affilies = ? WHERE userId = ?',
+        [affilies, userId]
+    );
+    return result;
+};
