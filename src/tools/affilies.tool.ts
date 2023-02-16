@@ -18,7 +18,7 @@ export const affilies = async (userId: string, idAffilies: string) => {
     const affilies: string = JSON.stringify([{ idAffilies }]);
 
     const affiliesLast = <RowDataPacket>await References.searchSponsor(userId);
-    if (affiliesLast.length > 0) return updateAffilities(affiliesLast);
+    if (affiliesLast.length > 0) console.log(updateAffilities(affiliesLast));
 
     const result = await References.createdReference({ userId, affilies });
     return { result };

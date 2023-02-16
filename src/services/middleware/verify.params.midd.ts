@@ -15,14 +15,19 @@ export const verifyParams = async (
             const searchUser = <RowDataPacket>(
                 await User.searchUserByParams(ref)
             );
+            console.log(searchUser);
             if (searchUser.length === 0)
                 return res
                     .status(404)
                     .json({ message: 'Reference invalid, not exists user' });
-            if (searchUser[0].email.split('@')[0] !== ref)
-                return res.status(404).json({ message: 'Refer no exists' });
 
-            req.userRef = searchUser[0].id;
+            const reference = searchUser.find(
+                ({ email }: { email: string }) => email.split('@')[0] === ref
+            );
+
+            console.log(reference);
+
+            req.userRef = reference.id;
         }
 
         return next();
