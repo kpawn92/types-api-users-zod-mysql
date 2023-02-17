@@ -1,5 +1,5 @@
+HABILITAR CACHE EN LAS ROUTES GET:/
 ROUTE USER
-Obtener los moderadores con sus datos (auth: admin)
-Obtener los affilies del moderator pasandole la fecha por params, example: {count: num, {...affilies}}
-Los usuarios actualicen sus datos (token)
-
+Obtener los moderadores con sus datos (auth: admin) GET
+Obtener los affilies del moderator pasandole la fecha por params, return: {count: count(affilies), {...affilies}} <== QUERYS EN LA URL
+Los usuarios actualicen sus datos (token) PUT

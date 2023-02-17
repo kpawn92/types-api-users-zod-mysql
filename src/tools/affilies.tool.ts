@@ -2,10 +2,6 @@ import { RowDataPacket } from 'mysql2';
 import { References } from '../services/models';
 import { Affilies } from '../types';
 
-//TODO: agregar fecha timestap createdAt al json de los afiliados
-//TODO: hacer los test para las rutas
-//TODO: seguir valorando la cache
-
 const updateAffilities = async (
     userId: string,
     affiliesLast: RowDataPacket,
