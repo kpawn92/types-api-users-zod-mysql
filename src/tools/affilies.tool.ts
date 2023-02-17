@@ -2,14 +2,9 @@ import { RowDataPacket } from 'mysql2';
 import { References } from '../services/models';
 import { Affilies } from '../types';
 
-// Covert el helper en un middleware function(req, res)
-// Analizar la posibilidad de guardar en memoria para que sea agil la ejecucion y sea eficiente la concurrencia
-// Investigar redis.
-/**
- * Inicio
- * Realizar la consulta una sola vez
- * Crear la tabla en redis y al terminar el proceso ejecutar un setTimeOut() para guardar los cambios en mysql
- */
+//TODO: agregar fecha timestap createdAt al json de los afiliados
+//TODO: hacer los test para las rutas
+//TODO: seguir valorando la cache
 
 const updateAffilities = async (
     userId: string,

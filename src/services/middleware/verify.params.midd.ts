@@ -25,6 +25,9 @@ export const verifyParams = async (
                 ({ email }: { email: string }) => email.split('@')[0] === ref
             );
 
+            if (reference.length === 0)
+                return res.status(404).json({ message: 'Invalid reference' });
+
             console.log(reference);
 
             req.userRef = reference.id;

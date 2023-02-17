@@ -1,5 +1,5 @@
 import { pool } from '../../../connection/mysql.conn';
-import { AdminUser, Refence } from '../../../types';
+import { AdminUser } from '../../../types';
 import 'dotenv/config';
 
 export const countUsers = async () => {
@@ -38,7 +38,7 @@ export const getRoleById = async (id: string): Promise<object> => {
     return result;
 };
 
-export const searchUserByParams = async (ref: Refence) => {
+export const searchUserByParams = async (ref: string) => {
     const [query] = await pool.query(
         `SELECT id, email FROM tb_user WHERE email LIKE '%${ref}%'`
     );
