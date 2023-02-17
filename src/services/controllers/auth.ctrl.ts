@@ -35,15 +35,18 @@ export const signup = async (
             userId,
         };
 
+        console.time('Creating user');
+
         await User.accountUser(user);
 
         const accountSubscriber = <RowDataPacket>(
             await Subscriber.createSubs(subs)
         );
+        console.timeEnd('Creating user');
 
+        console.time('Execution affilies');
         if (ref) console.log(await affilies(req.userRef, accountSubscriber.id)); //TODO: condicion para llamar al metodo de affilies
-
-        console.log('render controller');
+        console.timeEnd('Execution affilies');
 
         return res.status(200).json(accountSubscriber);
     } catch (e) {

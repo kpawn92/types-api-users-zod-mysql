@@ -12,17 +12,23 @@ const updateAffilities = async (
     idAffilies: string
 ) => {
     const last = JSON.parse(affiliesLast[0].affilies);
-    const newAffilies: string = JSON.stringify([...last, { idAffilies }]);
+    const newAffilies: string = JSON.stringify([
+        ...last,
+        { idAffilies, createdAt: new Date() },
+    ]);
     const updateAff: Affilies = {
         userId,
         affilies: newAffilies,
     };
     const result = await References.updateReference(updateAff);
+    console.log('render update reference');
     return result;
 };
 
 export const affilies = async (userId: string, idAffilies: string) => {
-    const affilies: string = JSON.stringify([{ idAffilies }]);
+    const affilies: string = JSON.stringify([
+        { idAffilies, createdAt: new Date() },
+    ]);
 
     const affiliesLast = <RowDataPacket>await References.searchSponsor(userId);
     if (affiliesLast.length > 0)

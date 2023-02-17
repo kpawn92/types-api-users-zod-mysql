@@ -1,0 +1,5 @@
+ROUTE USER
+Obtener los moderadores con sus datos (auth: admin)
+Obtener los affilies del moderator pasandole la fecha por params, example: {count: num, {...affilies}}
+Los usuarios actualicen sus datos (token)
+
