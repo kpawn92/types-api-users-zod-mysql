@@ -1,6 +1,7 @@
 import express, { Application } from 'express';
 import morgan from 'morgan';
 import authRoute from './routes/auth.routes';
+import userRoute from './routes/user.routes';
 import { accountAdmin, createRoles } from './libs/initialSetup';
 
 const app: Application = express();
@@ -16,5 +17,6 @@ accountAdmin();
 
 // routes
 app.use('/auth/', authRoute);
+app.use('/user/', userRoute);
 
 export default app;

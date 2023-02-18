@@ -15,7 +15,6 @@ export const verifyParams = async (
             const searchUser = <RowDataPacket>(
                 await User.searchUserByParams(ref)
             );
-            console.log(searchUser);
             if (searchUser.length === 0)
                 return res
                     .status(404)
@@ -27,8 +26,6 @@ export const verifyParams = async (
 
             if (reference.length === 0)
                 return res.status(404).json({ message: 'Invalid reference' });
-
-            console.log(reference);
 
             req.userRef = reference.id;
         }
