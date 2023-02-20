@@ -45,7 +45,7 @@ export const signup = async (
         console.timeEnd('Creating user');
 
         console.time('Execution affilies');
-        if (ref) console.log(await affilies(req.userRef, accountSubscriber.id)); //TODO: condicion para llamar al metodo de affilies
+        if (ref) await affilies(req.userRef, accountSubscriber.id); //TODO: condicion para llamar al metodo de affilies
         console.timeEnd('Execution affilies');
 
         return res.status(200).json(accountSubscriber);

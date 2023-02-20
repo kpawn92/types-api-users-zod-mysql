@@ -19,6 +19,11 @@ export interface Affilies {
     affilies: string;
 }
 
+export interface ListIdAffilies {
+    idAffilies: string;
+    createdAt: string;
+}
+
 export type AdminUser = Omit<User, 'name' | 'lastname' | 'userId'>;
 export type IsUser = Omit<User, 'id' | 'email' | 'password' | 'role'>;
 export type Reference = Pick<User, 'id' | 'email'>;

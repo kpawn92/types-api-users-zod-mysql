@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : Farmram
+ Source Server         : FarmaRAM
  Source Server Type    : MySQL
- Source Server Version : 100421
+ Source Server Version : 100419
  Source Host           : localhost:3306
  Source Schema         : usersdb
 
  Target Server Type    : MySQL
- Target Server Version : 100421
+ Target Server Version : 100419
  File Encoding         : 65001
 
- Date: 15/02/2023 12:17:22
+ Date: 19/02/2023 11:22:25
 */
 
 SET NAMES utf8mb4;
@@ -43,7 +43,7 @@ CREATE TABLE `tb_references`  (
   `affilies` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL,
   `createdAt` timestamp(6) NOT NULL DEFAULT current_timestamp(6) ON UPDATE CURRENT_TIMESTAMP(6),
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_spanish_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_spanish_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of tb_references
@@ -57,7 +57,7 @@ CREATE TABLE `tb_role`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(11) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 46 CHARACTER SET = utf8 COLLATE = utf8_spanish_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 49 CHARACTER SET = utf8 COLLATE = utf8_spanish_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of tb_role

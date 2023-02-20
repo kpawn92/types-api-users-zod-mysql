@@ -25,3 +25,11 @@ export const updateReference = async ({ userId, affilies }: Affilies) => {
     );
     return result;
 };
+
+export const getUsersByReference = async (userId: string) => {
+    const [result] = await pool.query(
+        'SELECT affilies FROM tb_references WHERE userId = ?',
+        [userId]
+    );
+    return result;
+};

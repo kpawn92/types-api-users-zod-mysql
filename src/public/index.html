@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Count</title>
+    <script src="/socket.io/socket.io.js"></script>
+</head>
+<body style="background-color: black; text-align: center;">
+    <h1 style="color: azure;">Contador de usuarios online</h1>
+    <h4 style="color: azure;">Usuarios conectados: <small id="connected">0</small></h4>
+    <h4 style="color: azure;">Visitas: <small id="vistas">0</small></h4>
+
+    <script>
+        socket = io()
+        socket.on('update', (users, views) => {
+            document.querySelector('#connected').innerHTML = users
+            document.querySelector('#vistas').innerHTML = views
+        })
+    </script>
+</body>
+</html>
