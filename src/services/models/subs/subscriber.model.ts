@@ -21,3 +21,11 @@ export const createSubs = async ({
         lastname,
     };
 };
+
+export const getDataSubscriber = async (id: string) => {
+    const [result] = await pool.query(
+        'SELECT tb_subscriber.id, tb_subscriber.name, tb_subscriber.lastname, tb_user.email, tb_user.state FROM tb_subscriber JOIN tb_user ON tb_user.id = tb_subscriber.userId JOIN tb_role ON tb_role.id = tb_user.role WHERE tb_subscriber.id = ?',
+        [id]
+    );
+    return result;
+};

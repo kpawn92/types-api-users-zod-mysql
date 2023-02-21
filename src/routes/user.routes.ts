@@ -1,15 +1,35 @@
 import { Router } from 'express';
-import { usersAffilies } from '../services/controllers/user.ctrl';
+import {
+    getUserDataById,
+    getUsers,
+    getUsersAffilies,
+} from '../services/controllers/user.ctrl';
 import { schemaValidition } from '../services/middleware/schema.validate.midd';
-import { affiliesSchema } from '../services/schemas/user.schema';
+import {
+    affiliesSchema,
+    userSchema,
+    usersSchema,
+} from '../services/schemas/user.schema';
 
 const router: Router = Router();
 
+// ###  Obtiene todos los referidos la query es opcional "month=num1-12"
+
 /**
- * Cada usuario podra actualizar sus datos
- * El modelador obtiene sus afiliados
- * El admin obtiene todos los usuarios sean Moderator o Subscriber
- * El admin obtiene los affilies de cada moderator por mes
+ * Obetener los datos del usuario por el id
+ * Validar el id que se envia por params
+ * Validar el mes que se envia por query que solo sea del 1-12
+ * Ruta para invalidar usuario y/o modelator
  */
-router.get('/:ref', schemaValidition(affiliesSchema), usersAffilies);
+
+router.get('/', schemaValidition(usersSchema), getUsers);
+
+router.get(
+    '/affilies/:ref',
+    schemaValidition(affiliesSchema),
+    getUsersAffilies
+);
+
+router.get('/get/:id', schemaValidition(userSchema), getUserDataById);
+
 export default router;

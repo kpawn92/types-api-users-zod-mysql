@@ -21,3 +21,11 @@ export const createMod = async ({
         lastname,
     };
 };
+
+export const getDataModerator = async (id: string) => {
+    const [result] = await pool.query(
+        'SELECT tb_moderator.userId, tb_moderator.name, tb_moderator.lastname, tb_user.email, tb_user.state FROM tb_moderator JOIN tb_user ON tb_user.id = tb_moderator.userId JOIN tb_role ON tb_role.id = tb_user.role WHERE tb_moderator.userId = ?',
+        [id]
+    );
+    return result;
+};
