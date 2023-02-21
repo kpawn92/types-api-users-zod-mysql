@@ -24,6 +24,13 @@ export const usersSchema = z.object({
     }),
 });
 
+export const updateUserSchema = z.object({
+    body: z.object({
+        email: z.string().email().optional(),
+        password: z.string().min(6).optional(),
+    }),
+});
+
 export type AffiliesParamsType = z.infer<typeof affiliesSchema>['params'];
 export type AffiliesQuerysType = z.infer<typeof affiliesSchema>['query'];
 
@@ -31,3 +38,5 @@ export type UserParamsType = z.infer<typeof userSchema>['params'];
 export type UserQuerysType = z.infer<typeof userSchema>['query'];
 
 export type UsersQuerysType = z.infer<typeof usersSchema>['query'];
+
+export type UpdateUserBodyType = z.infer<typeof updateUserSchema>['body'];

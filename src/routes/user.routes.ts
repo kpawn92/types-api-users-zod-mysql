@@ -3,6 +3,7 @@ import {
     getUserDataById,
     getUsers,
     getUsersAffilies,
+    updateUser,
 } from '../services/controllers/user.ctrl';
 import { schemaValidition } from '../services/middleware/schema.validate.midd';
 import {
@@ -31,5 +32,7 @@ router.get(
 );
 
 router.get('/get/:id', schemaValidition(userSchema), getUserDataById);
+
+router.patch('/:userId', updateUser);
 
 export default router;

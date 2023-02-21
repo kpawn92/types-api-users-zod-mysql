@@ -85,3 +85,11 @@ export const getUsers = async (
         return res.status(500).json({ message: 'Internal error: ' + e });
     }
 };
+
+export const updateUser = async (req: Request, res: Response) => {
+    try {
+        return res.status(200).json(req.params);
+    } catch (e) {
+        return res.status(500).json({ message: 'Internal error: ' + e });
+    }
+};
