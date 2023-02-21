@@ -75,8 +75,12 @@ export const getUsers = async (
     res: Response
 ) => {
     try {
-        console.log(req.query.role);
-        return res.status(200).json(req.query.role);
+        if (req.query.role === 'moderator') {
+            const moderators = await Moderator.getModerators();
+            return res.status(202).json({ moderators });
+        }
+        const subscribers = await Subscriber.getSubs();
+        return res.status(200).json({ subscribers });
     } catch (e) {
         return res.status(500).json({ message: 'Internal error: ' + e });
     }

@@ -29,3 +29,10 @@ export const getDataModerator = async (id: string) => {
     );
     return result;
 };
+
+export const getModerators = async () => {
+    const [result] = await pool.query(
+        'SELECT tb_user.id as userId, tb_moderator.`name`, tb_moderator.lastname, email, state, tb_user.createdAt FROM  tb_moderator JOIN tb_user ON tb_user.id = tb_moderator.userId JOIN tb_role ON tb_role.id = tb_user.role'
+    );
+    return result;
+};
