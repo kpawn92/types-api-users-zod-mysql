@@ -50,6 +50,35 @@ const router: Router = Router();
  *                  lastname: T. Schulz
  *                  email: franc@gmail.com
  *                  password: test123456
+ *          BodyModeratorPost:
+ *              type: object
+ *              properties:
+ *                  name:
+ *                      type: string
+ *                      description: Nombre(s) del usuario
+ *                  lastname:
+ *                      type: string
+ *                      description: Apellidos del usuario
+ *                  email:
+ *                      type: string
+ *                      description: correo electronico del usuario, debe ser unico
+ *                  password:
+ *                      type: string
+ *                      description: Contraseña del usuario min_caracteres 6
+ *                  role:
+ *                      type: string
+ *                      description: Privilegio
+ *              required:
+ *                  - name
+ *                  - lastname
+ *                  - email
+ *                  - password
+ *              example:
+ *                  name: Francisco
+ *                  lastname: T. Schulz
+ *                  email: franc@gmail.com
+ *                  password: test123456
+ *                  role: moderator
  *          BodyLogin:
  *              type: object
  *              properties:
@@ -79,6 +108,7 @@ const router: Router = Router();
  *                  application/json:
  *                      schema:
  *                          $ref: '#/components/schemas/BodySubscriberPost'
+ *          required: true
  *          responses:
  *              200:
  *                  description: Usuario autenticado
@@ -101,7 +131,53 @@ const router: Router = Router();
  */
 router.post('/signup', schemaValidition(signUpSchema), verifyEmail, signup);
 
-// El admin crea los moderators
+/**
+ * @swagger
+ *  /auth/register:
+ *      post:
+ *          tags:
+ *          - Auth
+ *          summary: El admin crea el registro del moderador
+ *          parameters:
+ *          - $ref: '#/components/parameters/keyToken'
+ *          requestBody:
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/BodyModeratorPost'
+ *          required: true
+ *          responses:
+ *              200:
+ *                  description: Usuario autorizado
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              type: array
+ *              202:
+ *                  description: Peticion aceptada
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              type: array
+ *              400:
+ *                  description: Solicitud incorrecta
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              type: array
+ *              404:
+ *                  description: Usuario no encontrado
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              type: array
+ *              500:
+ *                  description: Error interno servidor
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              type: array
+ */
 router.post(
     '/register',
     verifyToken,
