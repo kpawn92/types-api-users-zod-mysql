@@ -64,7 +64,9 @@ export const signin = async (
     if (verifyUser.length === 0)
         return res.status(404).json({ message: 'Email not found' });
 
-    const { id, pass } = verifyUser[0];
+    const { id, pass, state } = verifyUser[0];
+
+    if (state === 0) return res.status(401).json({ message: 'Invalid user' });
     const mathPassword = await comparePassword(password, pass);
 
     if (!mathPassword)

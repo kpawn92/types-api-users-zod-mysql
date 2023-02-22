@@ -24,7 +24,7 @@ export const accountUser = async ({
 
 export const getByEmail = async (email: string) => {
     const [result] = await pool.query(
-        'SELECT id, email, password as pass FROM tb_user WHERE email = ?',
+        'SELECT id, email, password as pass, state FROM tb_user WHERE email = ?',
         [email]
     );
     return result;

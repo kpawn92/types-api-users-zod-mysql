@@ -45,6 +45,21 @@ const router: Router = Router();
  *                  lastname: T. Schulz
  *                  email: franc@gmail.com
  *                  password: test123456
+ *          BodyLogin:
+ *              type: object
+ *              properties:
+ *                  email:
+ *                      type: string
+ *                      description: Correo para acceder
+ *                  password:
+ *                      type: string
+ *                      description: Contraseña para acceder
+ *              required:
+ *                  - email
+ *                  - password
+ *              example:
+ *                  email: admin@admin.com
+ *                  password: admin123456
  */
 
 /**
@@ -61,7 +76,7 @@ const router: Router = Router();
  *                          $ref: '#/components/schemas/BodySubscriberPost'
  *          responses:
  *              200:
- *                  description: Usuario creado
+ *                  description: Usuario autenticado
  *                  content:
  *                      application/json:
  *                          schema:
@@ -100,7 +115,45 @@ router.post(
     signup
 );
 
-//TODO: Validar el id && que el state sea activo
+/**
+ * @swagger
+ *  /auth/signin:
+ *      post:
+ *          tags:
+ *          - Auth
+ *          summary: Autorizacion
+ *          requestBody:
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/BodyLogin'
+ *          responses:
+ *              200:
+ *                  description: Usuario autorizado
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              type: array
+ *              400:
+ *                  description: Solicitud incorrecta
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              type: array
+ *              404:
+ *                  description: Usuario no encontrado
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              type: array
+ *              500:
+ *                  description: Error interno servidor
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              type: array
+ */
+
 router.post('/signin', schemaValidition(signInSchema), signin);
 
 // El usuario obtiene su perfil
