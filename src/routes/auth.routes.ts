@@ -24,6 +24,13 @@ const router: Router = Router();
  *              name: auth-token
  *              in: header
  *              description: Token de acceso
+ *          Reference:
+ *              in: path
+ *              name: ref
+ *              required: true
+ *              schema:
+ *                  type: string
+ *              description: Nombre de usuario del sponsor
  *      schemas:
  *          BodySubscriberPost:
  *              type: object
@@ -98,41 +105,6 @@ const router: Router = Router();
 
 /**
  * @swagger
- *  /auth/signup:
- *      post:
- *          tags:
- *          - Auth
- *          summary: Autenticacion para acceder
- *          requestBody:
- *              content:
- *                  application/json:
- *                      schema:
- *                          $ref: '#/components/schemas/BodySubscriberPost'
- *          required: true
- *          responses:
- *              200:
- *                  description: Usuario autenticado
- *                  content:
- *                      application/json:
- *                          schema:
- *                              type: array
- *              400:
- *                  description: Solicitud incorrecta
- *                  content:
- *                      application/json:
- *                          schema:
- *                              type: array
- *              500:
- *                  description: Error interno servidor
- *                  content:
- *                      application/json:
- *                          schema:
- *                              type: array
- */
-router.post('/signup', schemaValidition(signUpSchema), verifyEmail, signup);
-
-/**
- * @swagger
  *  /auth/register:
  *      post:
  *          tags:
@@ -187,7 +159,82 @@ router.post(
     accountMod
 );
 
-// El usuario se crea la cuenta por referencia
+/**
+ * @swagger
+ *  /auth/signup:
+ *      post:
+ *          tags:
+ *          - Auth
+ *          summary: Autenticacion para acceder
+ *          requestBody:
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/BodySubscriberPost'
+ *          required: true
+ *          responses:
+ *              200:
+ *                  description: Usuario autenticado
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              type: array
+ *              400:
+ *                  description: Solicitud incorrecta
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              type: array
+ *              500:
+ *                  description: Error interno servidor
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              type: array
+ */
+router.post('/signup', schemaValidition(signUpSchema), verifyEmail, signup);
+
+/**
+ * @swagger
+ *  /auth/signup/{ref}:
+ *      post:
+ *          tags:
+ *          - Auth
+ *          summary: Autenticacion por referencia
+ *          parameters:
+ *          - $ref: '#/components/parameters/Reference'
+ *          requestBody:
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/BodySubscriberPost'
+ *          required: true
+ *          responses:
+ *              200:
+ *                  description: Usuario autenticado
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              type: array
+ *              400:
+ *                  description: Solicitud incorrecta
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              type: array
+ *              404:
+ *                  description: Usuario no encontrado
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              type: array
+ *              500:
+ *                  description: Error interno servidor
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              type: array
+ */
 router.post(
     '/signup/:ref',
     schemaValidition(signUpSchema),
