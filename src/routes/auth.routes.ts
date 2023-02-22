@@ -19,6 +19,11 @@ const router: Router = Router();
 /**
  * @swagger
  *  components:
+ *      parameters:
+ *          keyToken:
+ *              name: auth-token
+ *              in: header
+ *              description: Token de acceso
  *      schemas:
  *          BodySubscriberPost:
  *              type: object
@@ -156,7 +161,41 @@ router.post(
 
 router.post('/signin', schemaValidition(signInSchema), signin);
 
-// El usuario obtiene su perfil
+/**
+ * @swagger
+ *  /auth/profile:
+ *      get:
+ *          tags:
+ *          - Auth
+ *          summary: Perfil del usuario
+ *          parameters:
+ *          - $ref: '#/components/parameters/keyToken'
+ *          responses:
+ *              200:
+ *                  description: Usuario autorizado
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              type: array
+ *              400:
+ *                  description: Solicitud incorrecta
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              type: array
+ *              404:
+ *                  description: Usuario no encontrado
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              type: array
+ *              500:
+ *                  description: Error interno servidor
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              type: array
+ */
 router.get('/profile', verifyToken, profile);
 
 export default router;
