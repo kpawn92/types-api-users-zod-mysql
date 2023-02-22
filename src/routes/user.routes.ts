@@ -23,16 +23,24 @@ const router: Router = Router();
  * Ruta para invalidar usuario y/o modelator
  */
 
+// El admin obtiene los usuarios por el rol
+
 router.get('/', schemaValidition(usersSchema), getUsers);
 
+// El admin obtiene los afiliados del moderador
 router.get(
     '/affilies/:ref',
     schemaValidition(affiliesSchema),
     getUsersAffilies
 );
 
+// El admin los datos del usuario con el role con query en la url
 router.get('/get/:id', schemaValidition(userSchema), getUserDataById);
 
+// El usuario actualiza la contraseña
 router.patch('/:userId', updateUser);
+
+// El admin invalida el usuario
+router.delete('/:userId', updateUser);
 
 export default router;
