@@ -36,3 +36,11 @@ export const getModerators = async () => {
     );
     return result;
 };
+
+export const getModByUserID = async (userId: string) => {
+    const [result] = await pool.query(
+        'SELECT userId FROM tb_moderator WHERE userId = ?',
+        [userId]
+    );
+    return result;
+};

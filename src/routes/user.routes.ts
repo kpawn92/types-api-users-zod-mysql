@@ -6,6 +6,9 @@ import {
     updateUser,
 } from '../services/controllers/user.ctrl';
 import { schemaValidition } from '../services/middleware/schema.validate.midd';
+import { verifyRole } from '../services/middleware/verify.role.midd';
+import { verifySponsor } from '../services/middleware/verify.sponsor.midd';
+import { isRoot, verifyToken } from '../services/middleware/verifyJwt.midd';
 import {
     affiliesSchema,
     userSchema,
@@ -14,23 +17,145 @@ import {
 
 const router: Router = Router();
 
-// ###  Obtiene todos los referidos la query es opcional "month=num1-12"
-
 /**
- * Obetener los datos del usuario por el id
- * Validar el id que se envia por params
- * Validar el mes que se envia por query que solo sea del 1-12
- * Ruta para invalidar usuario y/o modelator
+ * @swagger
+ *  tags:
+ *      name: Users
+ *      description: Rutas para manejar informacion relacionada con los usuarios
  */
 
-// El admin obtiene los usuarios por el rol
+/**
+ * @swagger
+ *  components:
+ *      parameters:
+ *          Roles:
+ *              in: query
+ *              name: role
+ *              required: true
+ *              schema:
+ *                  type: string
+ *              description: Privilegio del usuario
+ *          idReference:
+ *              in: path
+ *              name: ref
+ *              required: true
+ *              schema:
+ *                  type: string
+ *              description: Id del sponsor
+ *          Month:
+ *              in: query
+ *              name: month
+ *              schema:
+ *                  type: string
+ *              description: Index del mes para obtener los afiliados ingresados
+ */
 
-router.get('/', schemaValidition(usersSchema), getUsers);
+/**
+ * @swagger
+ *  /user:
+ *      get:
+ *          tags:
+ *          - Users
+ *          summary: El admin obtiene los usuarios por privilegios
+ *          parameters:
+ *          - $ref: '#/components/parameters/Roles'
+ *          - $ref: '#/components/parameters/keyToken'
+ *          responses:
+ *              200:
+ *                  description: Usuario autorizado
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              type: array
+ *              202:
+ *                  description: Peticion aceptada
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              type: array
+ *              400:
+ *                  description: Solicitud incorrecta
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              type: array
+ *              404:
+ *                  description: Usuario no encontrado
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              type: array
+ *              500:
+ *                  description: Error interno servidor
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              type: array
+ */
+router.get(
+    '/',
+    verifyToken,
+    isRoot,
+    schemaValidition(usersSchema),
+    verifyRole,
+    getUsers
+);
 
-// El admin obtiene los afiliados del moderador
+/**
+ * @swagger
+ *  /user/affilies/{ref}:
+ *      get:
+ *          tags:
+ *          - Users
+ *          summary: El admin obtiene los usuarios por privilegios
+ *          parameters:
+ *          - $ref: '#/components/parameters/idReference'
+ *          - $ref: '#/components/parameters/Month'
+ *          - $ref: '#/components/parameters/keyToken'
+ *          responses:
+ *              200:
+ *                  description: Usuario autorizado
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              type: array
+ *              202:
+ *                  description: Peticion aceptada
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              type: array
+ *              400:
+ *                  description: Solicitud incorrecta
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              type: array
+ *              406:
+ *                  description: No se encuentra ningun contenido segun lo solicitado
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              type: array
+ *              404:
+ *                  description: Usuario no encontrado
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              type: array
+ *              500:
+ *                  description: Error interno servidor
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              type: array
+ */
 router.get(
     '/affilies/:ref',
+    verifyToken,
+    isRoot,
     schemaValidition(affiliesSchema),
+    verifySponsor,
     getUsersAffilies
 );
 

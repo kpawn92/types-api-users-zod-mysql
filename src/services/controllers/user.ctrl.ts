@@ -19,7 +19,11 @@ export const getUsersAffilies = async (
         const result = <RowDataPacket>(
             await References.getUsersByReference(req.params.ref)
         );
-        console.log(req.query.month);
+
+        if (result.length === 0)
+            return res
+                .status(406)
+                .json({ message: 'Sponsor does not contain affiliates' });
         const arr = JSON.parse(result[0].affilies);
 
         const listMonth = arr
@@ -36,7 +40,7 @@ export const getUsersAffilies = async (
                     : req.query.month)
         );
 
-        const amountOfTheMonth = listMonth.filter(
+        const amountForMonth = listMonth.filter(
             (item: number) => item === Number(req.query.month) - 1
         ).length;
 
@@ -45,7 +49,7 @@ export const getUsersAffilies = async (
         return res.status(200).json({
             month: getMonth(Number(req.query.month) - 1),
             amountAffilies: arr.length,
-            amountOfTheMonth,
+            amountForMonth,
             listIdAffilies,
         });
     } catch (e) {
