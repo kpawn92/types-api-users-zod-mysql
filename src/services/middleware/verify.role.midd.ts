@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { UsersQuerysType } from '../schemas/user.schema';
 
-const roles = ['moderator', 'user'];
+export const roles = ['moderator', 'user'];
 
 export const verifyRole = (
     req: Request<unknown, unknown, unknown, UsersQuerysType>,

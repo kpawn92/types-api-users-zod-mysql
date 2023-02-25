@@ -55,3 +55,18 @@ export const getProfile = async (
     );
     return { result, permission: entity };
 };
+
+export const getUserByID = async (id: string) => {
+    const [result] = await pool.query('SELECT id FROM tb_user WHERE id= ?', [
+        id,
+    ]);
+    return result;
+};
+
+export const changeStateUser = async (id: string) => {
+    const [result] = await pool.query(
+        'UPDATE tb_user SET state = 0 WHERE id = ?',
+        [id]
+    );
+    return result;
+};

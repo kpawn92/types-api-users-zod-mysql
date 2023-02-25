@@ -36,3 +36,19 @@ export const getSubs = async () => {
     );
     return result;
 };
+
+export const getSubsById = async (id: string) => {
+    const [result] = await pool.query(
+        'SELECT id FROM tb_subscriber WHERE id = ?',
+        [id]
+    );
+    return result;
+};
+
+export const updatePassword = async (id: string, password: string) => {
+    const [result] = await pool.query(
+        'UPDATE tb_subscriber SET password = ? WHERE id = ?',
+        [password, id]
+    );
+    return result;
+};

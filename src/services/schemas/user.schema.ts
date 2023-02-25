@@ -24,10 +24,9 @@ export const usersSchema = z.object({
     }),
 });
 
-export const updateUserSchema = z.object({
-    body: z.object({
-        email: z.string().email().optional(),
-        password: z.string().min(6).optional(),
+export const invalidUserSchema = z.object({
+    params: z.object({
+        id: z.string().min(4).max(36),
     }),
 });
 
@@ -39,4 +38,4 @@ export type UserQuerysType = z.infer<typeof userSchema>['query'];
 
 export type UsersQuerysType = z.infer<typeof usersSchema>['query'];
 
-export type UpdateUserBodyType = z.infer<typeof updateUserSchema>['body'];
+export type InvalidParamsType = z.infer<typeof invalidUserSchema>['params'];

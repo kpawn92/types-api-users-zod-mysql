@@ -2,10 +2,11 @@ import { Request, Response } from 'express';
 import { RowDataPacket } from 'mysql2';
 import { getMonth } from '../../libs/months';
 import { ListIdAffilies } from '../../types';
-import { Moderator, References, Subscriber } from '../models';
+import { Moderator, References, Subscriber, User } from '../models';
 import {
     AffiliesParamsType,
     AffiliesQuerysType,
+    InvalidParamsType,
     UserParamsType,
     UserQuerysType,
     UsersQuerysType,
@@ -64,7 +65,7 @@ export const getUserDataById = async (
     try {
         if (req.query.role === 'user') {
             const user = await Subscriber.getDataSubscriber(req.params.id);
-            return res.status(202).json({ user });
+            return res.status(202).json({ subscriber: user });
         }
 
         const moderator = await Moderator.getDataModerator(req.params.id);
@@ -90,9 +91,13 @@ export const getUsers = async (
     }
 };
 
-export const updateUser = async (req: Request, res: Response) => {
+export const invalidUser = async (
+    req: Request<InvalidParamsType, unknown, unknown, unknown>,
+    res: Response
+) => {
     try {
-        return res.status(200).json(req.params);
+        const result = await User.changeStateUser(req.params.id);
+        return res.status(200).json({ result });
     } catch (e) {
         return res.status(500).json({ message: 'Internal error: ' + e });
     }

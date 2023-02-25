@@ -3,14 +3,19 @@ import {
     getUserDataById,
     getUsers,
     getUsersAffilies,
-    updateUser,
+    invalidUser,
 } from '../services/controllers/user.ctrl';
 import { schemaValidition } from '../services/middleware/schema.validate.midd';
 import { verifyRole } from '../services/middleware/verify.role.midd';
 import { verifySponsor } from '../services/middleware/verify.sponsor.midd';
+import {
+    verifyUserAccount,
+    verifyUserID,
+} from '../services/middleware/verify.user.midd';
 import { isRoot, verifyToken } from '../services/middleware/verifyJwt.midd';
 import {
     affiliesSchema,
+    invalidUserSchema,
     userSchema,
     usersSchema,
 } from '../services/schemas/user.schema';
@@ -42,6 +47,13 @@ const router: Router = Router();
  *              schema:
  *                  type: string
  *              description: Id del sponsor
+ *          idUser:
+ *              in: path
+ *              name: id
+ *              required: true
+ *              schema:
+ *                  type: string
+ *              description: ID del Subscriber | UserID del Moderator
  *          Month:
  *              in: query
  *              name: month
@@ -159,13 +171,119 @@ router.get(
     getUsersAffilies
 );
 
-// El admin los datos del usuario con el role con query en la url
-router.get('/get/:id', schemaValidition(userSchema), getUserDataById);
+/**
+ * @swagger
+ *  /user/get/{id}:
+ *      get:
+ *          tags:
+ *          - Users
+ *          summary: El admin obtiene los datos del Subscriber | Moderator
+ *          parameters:
+ *          - $ref: '#/components/parameters/idUser'
+ *          - $ref: '#/components/parameters/Roles'
+ *          - $ref: '#/components/parameters/keyToken'
+ *          responses:
+ *              200:
+ *                  description: Usuario autorizado
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              type: array
+ *              202:
+ *                  description: Peticion aceptada
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              type: array
+ *              400:
+ *                  description: Solicitud incorrecta
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              type: array
+ *              406:
+ *                  description: No se encuentra ningun contenido segun lo solicitado
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              type: array
+ *              404:
+ *                  description: Usuario no encontrado
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              type: array
+ *              500:
+ *                  description: Error interno servidor
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              type: array
+ */
+router.get(
+    '/get/:id',
+    verifyToken,
+    isRoot,
+    schemaValidition(userSchema),
+    verifyUserID,
+    getUserDataById
+);
 
-// El usuario actualiza la contraseña
-router.patch('/:userId', updateUser);
-
-// El admin invalida el usuario
-router.delete('/:userId', updateUser);
+/**
+ * @swagger
+ *  /user/{id}:
+ *      delete:
+ *          tags:
+ *          - Users
+ *          summary: El admin invalida el usuario
+ *          parameters:
+ *          - $ref: '#/components/parameters/keyToken'
+ *          - $ref: '#/components/parameters/idUser'
+ *          responses:
+ *              200:
+ *                  description: Usuario autorizado
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              type: array
+ *              202:
+ *                  description: Peticion aceptada
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              type: array
+ *              400:
+ *                  description: Solicitud incorrecta
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              type: array
+ *              406:
+ *                  description: No se encuentra ningun contenido segun lo solicitado
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              type: array
+ *              404:
+ *                  description: Usuario no encontrado
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              type: array
+ *              500:
+ *                  description: Error interno servidor
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              type: array
+ */
+router.delete(
+    '/:id',
+    verifyToken,
+    isRoot,
+    schemaValidition(invalidUserSchema),
+    verifyUserAccount,
+    invalidUser
+);
 
 export default router;
