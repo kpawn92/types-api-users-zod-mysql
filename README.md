@@ -47,9 +47,16 @@ Guía de instalación:
     EMAIL: Correo electronico del administrador del sistema
     PASSWORD: Password del administrador del sistema
     KEY_SECRET: Caracteres especiales secretos para el encriptado del token
+    HOSTING: URL donde se encuentra el servidor example(http://localhost:PORT/) <== url local
 ```
 
 -   Comandos para correr el proyecto
+
+Descarga de dependencias
+
+```
+npm install
+```
 
 Servidor de desarrollo
 
