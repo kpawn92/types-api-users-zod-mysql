@@ -68,7 +68,7 @@ const router: Router = Router();
  *      get:
  *          tags:
  *          - Users
- *          summary: El admin obtiene los usuarios por privilegios
+ *          summary: El admin obtiene los usuarios por privilegio
  *          parameters:
  *          - $ref: '#/components/parameters/Roles'
  *          - $ref: '#/components/parameters/keyToken'
@@ -119,7 +119,7 @@ router.get(
  *      get:
  *          tags:
  *          - Users
- *          summary: El admin obtiene los usuarios por privilegios
+ *          summary: El admin obtiene los afiliados por referencia
  *          parameters:
  *          - $ref: '#/components/parameters/idReference'
  *          - $ref: '#/components/parameters/Month'
@@ -177,7 +177,7 @@ router.get(
  *      get:
  *          tags:
  *          - Users
- *          summary: El admin obtiene los datos del Subscriber | Moderator
+ *          summary: El admin obtiene los datos del Subscriber || Moderator
  *          parameters:
  *          - $ref: '#/components/parameters/idUser'
  *          - $ref: '#/components/parameters/Roles'

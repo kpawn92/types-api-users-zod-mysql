@@ -109,7 +109,7 @@ const router: Router = Router();
  *      post:
  *          tags:
  *          - Auth
- *          summary: El admin crea el registro del moderador
+ *          summary: El admin crea las cuentas con privilegios moderador
  *          parameters:
  *          - $ref: '#/components/parameters/keyToken'
  *          requestBody:
@@ -249,7 +249,7 @@ router.post(
  *      post:
  *          tags:
  *          - Auth
- *          summary: Autorizacion
+ *          summary: Autorizacion para acceder
  *          requestBody:
  *              content:
  *                  application/json:

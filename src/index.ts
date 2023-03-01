@@ -12,8 +12,17 @@ socket(io);
 try {
     async function main() {
         // app.listen(process.env.PORT || 3000);
-        console.log(await isConn(), '\n🔥 Database conected');
-        console.log('🚀 Server listened on port: ' + process.env.PORT);
+        console.log(await isConn(), '\n Database conected');
+        console.log(
+            `Server listened on: ${process.env.HOST || 'localhost'}:${
+                process.env.PORT || 4000
+            }`
+        );
+        console.log(
+            `Documentation listened on: ${process.env.HOST || 'localhost'}:${
+                process.env.PORT || 4000
+            }/docs`
+        );
     }
 
     main();
