@@ -1,2 +1,58 @@
-# types-api-users-zod-mysql
-api rest
+<h1 align="center"> API REST - Gestor de usuarios</h1>
+
+## Tabla de contenidos:
+
+---
+
+-   [Descripción y contexto](#descripción-y-contexto)
+-   [Guía de usuario](#guía-de-usuario)
+-   [Guía de instalación](#guía-de-instalación)
+-   [Código de conducta](#código-de-conducta)
+-   [Autor/es](#autores)
+-   [Licencia](#licencia)
+
+## Descripción y contexto
+
+---
+
+API REST:
+
+Validaciones del lado servidor, autenticacion y autorizacion con jwt(Json Web Token), vigencia del token 24h, control de los afiliados y referencia
+
+## Guía de usuario
+
+---
+
+Endpoint: "{HOSTING}/docs": se describe detalladamente cada proceso que debe realizar el Frontend para operar correctamente con la API REST
+
+## Guía de instalación
+
+---
+
+La API REST y el sistema servidor cumple con ciertos requisitos indispensables para su buen funcionamiento.
+
+-   Sistemas Operativos: Windows, Linux, Mac requestMin(1GB RAM, 1GB HDD/SSD)
+-   Gestor de base de datos: MySQL
+-   Aplicaciones: Nodejs and npm (http://nodejs.org) entorno para la ejecucion de JavaScript
+
+Guía de instalación:
+
+-   Crear la base de datos
+-   LLenar las variables de entorno:
+    PORT: Puerto del hosting
+    HOST: Hosting, local donde sera almacenada la API
+    USER: Usuario de la base de datos
+    PASS: Password de la base de datos
+    DB_MYSQL: Nombre de la base de datos
+    DB_PORT: Puerto de la base de datos
+    EMAIL: Correo electronico del administrador del sistema
+    PASSWORD: Password del administrador del sistema
+    KEY_SECRET: Caracteres especiales secretos para el encriptado del token
+
+*   Comandos para correr el proyecto
+
+```
+npm run dev
+npm run build
+npm run start
+```
