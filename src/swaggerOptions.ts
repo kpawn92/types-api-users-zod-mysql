@@ -9,7 +9,9 @@ export const options = {
         },
         servers: [
             {
-                url: process.env.HOSTING,
+                url: `http://${process.env.HOST || 'localhost'}:${
+                    process.env.PORT
+                }`,
             },
         ],
     },

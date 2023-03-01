@@ -7,9 +7,6 @@
 -   [Descripción y contexto](#descripción-y-contexto)
 -   [Guía de usuario](#guía-de-usuario)
 -   [Guía de instalación](#guía-de-instalación)
--   [Código de conducta](#código-de-conducta)
--   [Autor/es](#autores)
--   [Licencia](#licencia)
 
 ## Descripción y contexto
 
@@ -39,6 +36,8 @@ Guía de instalación:
 
 -   Crear la base de datos
 -   LLenar las variables de entorno:
+
+```
     PORT: Puerto del hosting
     HOST: Hosting, local donde sera almacenada la API
     USER: Usuario de la base de datos
@@ -48,11 +47,24 @@ Guía de instalación:
     EMAIL: Correo electronico del administrador del sistema
     PASSWORD: Password del administrador del sistema
     KEY_SECRET: Caracteres especiales secretos para el encriptado del token
+```
 
-*   Comandos para correr el proyecto
+-   Comandos para correr el proyecto
+
+Servidor de desarrollo
 
 ```
 npm run dev
+```
+
+Transpilar el codigo a javascript
+
+```
 npm run build
+```
+
+Servidor de produccion
+
+```
 npm run start
 ```
