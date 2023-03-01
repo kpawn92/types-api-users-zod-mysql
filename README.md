@@ -7,6 +7,7 @@
 -   [Descripción y contexto](#descripción-y-contexto)
 -   [Guía de usuario](#guía-de-usuario)
 -   [Guía de instalación](#guía-de-instalación)
+-   [Simultaniedad de los usuarios en tiempo real](#simultaniedad-de-los-usuarios-en-tiempo-real)
 
 ## Descripción y contexto
 
@@ -75,3 +76,9 @@ Servidor de produccion
 ```
 npm run start
 ```
+
+## Simultaniedad de los usuarios en tiempo real
+
+---
+
+Endpoint: "{HOSTING}/": Simple contador de las visitas y usuarios conectados simultaneamente
